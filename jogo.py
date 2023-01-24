@@ -5,7 +5,7 @@ import os
 maxPlays=9
 player=1
 plays=0
-win="n"
+win=False
 
 board = [
     ["  ","  ","  "],
@@ -33,13 +33,16 @@ def startPlay():
     global maxPlays
     print(f"Jogador: {player}")
     try: 
-        line=int(input("Linha: "))
-        col=int(input("Coluna: "))
         if player==1 and plays<maxPlays:
+            line=int(input("Linha: "))
+            col=int(input("Coluna: "))
             board[line][col]="X"
             player=2
             plays+=1
+
         elif player==2 and plays<maxPlays:
+            line=int(input("Linha: "))
+            col=int(input("Coluna: "))
             board[line][col]="O"
             player=1
             plays+=1  
@@ -49,11 +52,11 @@ def startPlay():
 
 def winCondition():
     global board
-    win = "n"
+    win = False
     chacters= ["X", "O"]
 
     for res in chacters:
-        win="n"
+        win=False
         indexL = 0
         indexC = 0
         while indexL < 3:
@@ -67,8 +70,10 @@ def winCondition():
                 win = res
                 break
             indexL+=1
-        if(win!="n"):
+        if(win!=False):
             break
+        indexL = 0
+        indexC = 0
         while indexC < 3:
             sumNumbers = 0
             indexL = 0
@@ -81,7 +86,7 @@ def winCondition():
                 win = res
                 break
             indexC+=1
-        if(win!="n"):
+        if(win!=False):
             break
 
         sumNumbers=0
@@ -120,7 +125,7 @@ while option != 4:
             startPlay()
             game()
             win=winCondition()
-            if win!= "n" or plays >= maxPlays:
+            if win!= False or plays >= maxPlays:
             
                 if win=="X" or win=="O":
                     print("jogador "+ win + " ganhou!")
